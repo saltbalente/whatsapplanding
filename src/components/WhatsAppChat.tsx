@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { WhatsAppChatProps, Message } from '../types';
 import ChatHeader from './ChatHeader';
 import MessageList from './MessageList';
@@ -11,6 +12,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
   messages: initialMessages, 
   contact 
 }) => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [showTestimonios, setShowTestimonios] = useState(false);
@@ -120,13 +122,19 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
   };
 
   const handleCall = () => {
-    console.log('Iniciando llamada');
-    // Aquí podrías implementar funcionalidad de llamada
+    const params = new URLSearchParams({
+      number: '+13213009113',
+      service: 'llamada-directa'
+    });
+    navigate(`/conversion/call?${params.toString()}`);
   };
 
   const handleVideoCall = () => {
-    console.log('Iniciando videollamada');
-    // Aquí podrías implementar funcionalidad de videollamada
+    const params = new URLSearchParams({
+      number: '+13213009113',
+      service: 'videollamada'
+    });
+    navigate(`/conversion/call?${params.toString()}`);
   };
 
   const handleAttach = () => {
@@ -161,12 +169,21 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
   };
 
   const handleServiceCall = () => {
-    window.open('tel:+13213009113', '_self');
+    const params = new URLSearchParams({
+      number: '+13213009113',
+      service: selectedService || 'consulta-general'
+    });
+    navigate(`/conversion/call?${params.toString()}`);
   };
 
   const handleServiceChat = () => {
-    const message = encodeURIComponent('Hola Maestro Gabriel, me interesa el servicio que ofreces. ¿Podrías ayudarme?');
-    window.open(`https://wa.me/18392988226?text=${message}`, '_blank');
+    const message = 'Hola Maestro Gabriel, me interesa el servicio que ofreces. ¿Podrías ayudarme?';
+    const params = new URLSearchParams({
+      number: '+18392988226',
+      message: message,
+      service: selectedService || 'consulta-general'
+    });
+    navigate(`/conversion/whatsapp?${params.toString()}`);
   };
 
   const scrollToTop = () => {

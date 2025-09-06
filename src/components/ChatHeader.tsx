@@ -5,12 +5,9 @@ import SVGIcon from './SVGIcon';
 const ChatHeader: React.FC<ChatHeaderProps> = ({ 
   contact, 
   onBack: __onBack, 
-  onCall: __onCall, 
+  onCall, 
   onVideoCall 
 }) => {
-  const handleCall = () => {
-    window.location.href = 'tel:+13213009113';
-  };
 
   return (
     <div className="bg-whatsapp-dark flex items-center px-4 py-3 text-white">
@@ -39,7 +36,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
       <div className="flex items-center space-x-2 ml-3">
         {/* Botón de llamada */}
         <button 
-          onClick={handleCall}
+          onClick={onCall}
           className="p-2 rounded-full hover:bg-white/10 transition-colors conversionmarcada"
           aria-label="Llamar"
         >
