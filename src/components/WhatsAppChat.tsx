@@ -226,7 +226,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
 
   return (
     <>
-      <div ref={topRef} className="h-screen w-full bg-white flex flex-col font-system">
+      <div ref={topRef} className="h-screen w-full bg-white flex flex-col font-system relative overflow-hidden">
         {/* Header del chat */}
         <ChatHeader 
           contact={contact}

@@ -39,8 +39,8 @@ export const chatData = {
     },
     {
       id: "3",
-      type: "sticker" as const,
-      content: "/assets/images/prayer-hands-sticker.png",
+      type: "text" as const,
+      content: "🙏",
       timestamp: getCurrentTime(),
       sent: false,
       delivered: true,

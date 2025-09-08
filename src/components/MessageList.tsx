@@ -5,6 +5,31 @@ import { ServiceButtons } from './ServiceButtons';
 import { useAnimation } from '../contexts/AnimationContext';
 import whatsappBg from '../assets/patterns/whatsapp-background.svg';
 
+// Componente de indicador "escribiendo"
+const TypingIndicator: React.FC = () => {
+  return (
+    <div className="flex items-center space-x-2 px-3 py-2 mb-2">
+      <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+        <img 
+          src="/altar-brujo.png" 
+          alt="Maestro Gabriel"
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      <div className="bg-white rounded-2xl px-4 py-2 shadow-sm max-w-xs">
+        <div className="flex items-center space-x-1 text-gray-500 text-sm">
+          <span>escribiendo</span>
+          <div className="flex space-x-1">
+            <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const MessageList: React.FC<MessageListProps> = ({ messages, onServiceSelect, onTestimoniosSelect, servicesRef }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,6 +114,11 @@ const MessageList: React.FC<MessageListProps> = ({ messages, onServiceSelect, on
                 />
               </div>
             ))}
+            
+            {/* Indicador de "escribiendo" cuando hay más mensajes por mostrar */}
+            {!hasInitialAnimationPlayed && visibleMessages < messages.length && (
+              <TypingIndicator />
+            )}
             
             {/* Mostrar botones de servicios después del último mensaje */}
             {visibleMessages === messages.length && onServiceSelect && (
