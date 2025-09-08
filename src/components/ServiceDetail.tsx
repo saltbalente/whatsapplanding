@@ -1,11 +1,6 @@
 import React from 'react';
 import { SVGIcon } from './SVGIcon';
-
-// Función para detectar iOS
-const isIOS = () => {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-};
+import { useDeviceDetection, getAvatarImage } from '../hooks/useDeviceDetection';
 
 interface ServiceDetailProps {
   service: string;
@@ -14,7 +9,7 @@ interface ServiceDetailProps {
   onChat: () => void;
 }
 
-const serviceDetails = {
+const getServiceDetails = (deviceInfo: any) => ({
   amor: {
     title: 'Ayuda en el Amor 💕',
     icon: 'heart',
@@ -76,7 +71,7 @@ const serviceDetails = {
     title: 'Mejorar mi Salud 🌿',
     icon: 'health',
     color: 'from-green-500 to-blue-400',
-    image: isIOS() ? '/gabriel-maestro.jpg' : '/altar-brujo.png',
+    image: getAvatarImage(deviceInfo),
     copy: {
       headline: '¡Recupera tu bienestar integral!',
       description: 'Sana tu cuerpo, mente y espíritu con rituales de sanación que complementan tu tratamiento médico.',
@@ -91,14 +86,11 @@ const serviceDetails = {
       urgency: '🚨 Tu salud no puede esperar - Consulta HOY'
     }
   }
-};
+});
 
-export const ServiceDetail: React.FC<ServiceDetailProps> = ({ 
-  service, 
-  onBack, 
-  onCall, 
-  onChat 
-}) => {
+export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, onBack, onCall, onChat }) => {
+  const deviceInfo = useDeviceDetection();
+  const serviceDetails = getServiceDetails(deviceInfo);
   const details = serviceDetails[service as keyof typeof serviceDetails];
   
   if (!details) return null;

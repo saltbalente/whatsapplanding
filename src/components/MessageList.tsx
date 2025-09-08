@@ -3,26 +3,28 @@ import { MessageListProps } from '../types';
 import MessageBubble from './MessageBubble';
 import { ServiceButtons } from './ServiceButtons';
 import { useAnimation } from '../contexts/AnimationContext';
+import { useDeviceDetection, getAvatarImage, getDeviceSpecificStyles } from '../hooks/useDeviceDetection';
 import whatsappBg from '../assets/patterns/whatsapp-background.svg';
-
-// Función para detectar iOS
-const isIOS = () => {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-};
 
 // Componente de indicador "escribiendo"
 const TypingIndicator: React.FC = () => {
-  // Seleccionar imagen según el dispositivo
-  const avatarImage = isIOS() ? '/gabriel-maestro.jpg' : '/altar-brujo.png';
+  const deviceInfo = useDeviceDetection();
+  const avatarImage = getAvatarImage(deviceInfo);
+  const imageStyles = getDeviceSpecificStyles(deviceInfo);
   return (
     <div className="flex items-center space-x-2 px-3 py-2 mb-2">
-      <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+      <div className="w-8 h-8 avatar-container flex-shrink-0">
         <img 
           src={avatarImage} 
           alt="Maestro Gabriel"
-          className="w-full h-full object-cover object-center"
-          style={{ objectFit: "contain", objectPosition: "center", imageOrientation: "from-image", backgroundColor: "#f3f4f6" }}
+          className="w-full h-full object-cover object-center maestro-avatar"
+          style={imageStyles}
+          loading="eager"
+          onError={(e) => {
+            // Fallback en caso de error
+            const target = e.target as HTMLImageElement;
+            target.src = '/altar-brujo.png';
+          }}
         />
       </div>
       <div className="bg-white rounded-2xl px-4 py-2 shadow-sm max-w-xs">

@@ -1,12 +1,7 @@
 import React from 'react';
 import { ChatHeaderProps } from '../types';
 import SVGIcon from './SVGIcon';
-
-// Función para detectar iOS
-const isIOS = () => {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-};
+import { useDeviceDetection, getAvatarImage, getDeviceSpecificStyles } from '../hooks/useDeviceDetection';
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({ 
   contact, 
@@ -14,20 +9,27 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
   onCall, 
   onVideoCall 
 }) => {
-  // Seleccionar imagen según el dispositivo
-  const avatarImage = isIOS() ? '/gabriel-maestro.jpg' : '/altar-brujo.png';
+  const deviceInfo = useDeviceDetection();
+  const avatarImage = getAvatarImage(deviceInfo);
+  const imageStyles = getDeviceSpecificStyles(deviceInfo);
 
   return (
     <div className="bg-whatsapp-dark flex items-center px-3 sm:px-4 py-2 sm:py-3 text-white sticky top-0 z-50">
       {/* Botón de retroceso oculto en el home */}
       
       {/* Avatar */}
-      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden mr-2 sm:mr-3 flex-shrink-0">
+      <div className="w-8 h-8 sm:w-10 sm:h-10 avatar-container mr-2 sm:mr-3 flex-shrink-0">
         <img 
           src={avatarImage} 
           alt={contact.name}
-          className="w-full h-full object-cover object-center"
-          style={{ objectFit: "contain", objectPosition: "center", imageOrientation: "from-image", backgroundColor: "#f3f4f6" }}
+          className="w-full h-full object-cover object-center maestro-avatar"
+          style={imageStyles}
+          loading="eager"
+          onError={(e) => {
+            // Fallback en caso de error
+            const target = e.target as HTMLImageElement;
+            target.src = '/altar-brujo.png';
+          }}
         />
       </div>
       
