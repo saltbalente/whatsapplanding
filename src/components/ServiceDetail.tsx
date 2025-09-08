@@ -137,6 +137,12 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({
               src={details.image} 
               alt={details.title}
               className="w-full h-64 sm:h-80 object-cover rounded-xl shadow-md"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center center',
+                transform: 'none',
+                imageOrientation: 'from-image'
+              }}
             />
           </div>
         )}

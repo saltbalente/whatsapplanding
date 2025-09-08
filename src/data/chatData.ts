@@ -49,6 +49,33 @@ export const chatData = {
     {
       id: "4",
       type: "text" as const,
+      content: "Hola, soy el maestro Gabriel",
+      timestamp: getCurrentTime(),
+      sent: false,
+      delivered: true,
+      read: true
+    },
+    {
+      id: "5",
+      type: "text" as const,
+      content: "Quiero ayudarte a solucionar los problemas que tienes en tu vida",
+      timestamp: getCurrentTime(),
+      sent: false,
+      delivered: true,
+      read: true
+    },
+    {
+      id: "6",
+      type: "text" as const,
+      content: "Si me permites puedo hacerte una revisión gratis",
+      timestamp: getCurrentTime(),
+      sent: false,
+      delivered: true,
+      read: true
+    },
+    {
+      id: "7",
+      type: "text" as const,
       content: "Selecciona que ayuda necesitas:",
       timestamp: getCurrentTime(),
       sent: false,

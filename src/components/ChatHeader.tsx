@@ -19,6 +19,13 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
           src="/altar-brujo.png" 
           alt={contact.name}
           className="w-full h-full object-cover object-center"
+          style={{
+            aspectRatio: '1/1',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            transform: 'none',
+            imageOrientation: 'from-image'
+          }}
         />
       </div>
       
