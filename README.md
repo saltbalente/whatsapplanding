@@ -68,18 +68,22 @@ pnpm dev
 ```
 src/
 ├── components/          # Componentes reutilizables
-│   ├── ChatHeader.tsx   # Cabecera del chat
-│   ├── ChatInput.tsx    # Input de mensajes
+│   ├── ChatHeader.tsx   # Cabecera del chat (con rutas de conversión)
+│   ├── ChatInput.tsx    # Input de mensajes (con rutas de conversión)
+│   ├── ConversionPage.tsx # Páginas de conversión con GTM tracking
 │   ├── MessageBubble.tsx # Burbujas de mensajes
-│   ├── ServiceDetail.tsx # Modales de servicios
+│   ├── ServiceDetail.tsx # Modales de servicios (con rutas de conversión)
 │   ├── TestimoniosModal.tsx # Modal de testimonios
-│   └── WhatsAppChat.tsx # Componente principal del chat
+│   └── WhatsAppChat.tsx # Componente principal del chat (con rutas de conversión)
 ├── contexts/            # Contextos de React
 ├── data/               # Datos estáticos
 ├── hooks/              # Hooks personalizados
 ├── pages/              # Páginas de la aplicación
 ├── types/              # Definiciones de TypeScript
-└── lib/                # Utilidades y helpers
+├── lib/                # Utilidades y helpers
+├── gtm-conversion-config.json # Configuración GTM completa
+├── gtm-conversion-config-corregido.json # Configuración GTM corregida
+└── para-corregir.json  # Configuración GTM base
 ```
 
 ## 🎯 Funcionalidades Implementadas
@@ -106,9 +110,47 @@ src/
 - **Teléfono**: +1 (321)300-9113
 - Botones con clase `conversionmarcada` para tracking
 
+## 🎯 Sistema de Páginas de Conversión
+
+### Funcionalidad Implementada
+
+El proyecto incluye un sistema completo de páginas de conversión que permite el tracking preciso de todas las interacciones de contacto:
+
+#### Rutas de Conversión
+- `/conversion/whatsapp` - Página intermedia para contactos de WhatsApp
+- `/conversion/call` - Página intermedia para llamadas telefónicas
+
+#### Características del Sistema
+- **Loading Profesional**: Spinner de 3 segundos con countdown
+- **Redirección Automática**: A WhatsApp o teléfono después del tracking
+- **Botón Manual**: Opción de "Continuar" como backup
+- **UI Consistente**: Diseño esotérico con gradientes y efectos
+- **Parámetros URL**: Captura número, mensaje y servicio
+
+#### Flujo de Conversión
+```
+Usuario hace clic → Página Conversión (3s + GTM event) → Redirección → WhatsApp/Teléfono
+```
+
 ## 📊 Google Tag Manager
 
 El proyecto incluye Google Tag Manager integrado con ID: `GTM-PBT4LZRD`
+
+### Eventos Implementados
+- `conversion_whatsapp_click` - Disparado en páginas de conversión WhatsApp
+- `conversion_call_click` - Disparado en páginas de conversión llamadas
+- Datos capturados: timestamp, servicio, número, tipo de conversión
+
+### Archivos GTM Incluidos
+- `gtm-conversion-config.json` - Configuración completa para importar
+- `gtm-conversion-config-corregido.json` - Versión corregida compatible
+- `para-corregir.json` - Configuración base existente
+
+### Configuración GTM
+1. Importar `gtm-conversion-config-corregido.json` en Google Tag Manager
+2. Configurar Google Ads ID (AW-730448291) si es necesario
+3. Publicar la configuración
+4. Las conversiones se trackearán automáticamente
 
 - Seguimiento de conversiones en todos los botones de contacto
 - Eventos personalizados para análisis de comportamiento
@@ -161,7 +203,7 @@ No se requieren variables de entorno adicionales para el funcionamiento básico.
 
 - 📱 WhatsApp: [+1 839-298-8226](https://wa.me/18392988226)
 - ☎️ Teléfono: [+1 (321)300-9113](tel:+13213009113)
-- 🌐 Web: [whatsapplanding.vercel.app](https://whatsapplanding.vercel.app)
+- 🌐 Web: [traeau4406oi-saludablebela-gmailcoms-projects.vercel.app](https://traeau4406oi-saludablebela-gmailcoms-projects.vercel.app)
 
 ## 📄 Licencia
 
