@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, CSSProperties } from 'react';
 
 interface DeviceInfo {
   isIOS: boolean;
@@ -95,11 +95,10 @@ export const getAvatarImage = (deviceInfo: DeviceInfo): string => {
  * @param deviceInfo - Información del dispositivo obtenida del hook
  * @returns Objeto con estilos CSS optimizados para el dispositivo
  */
-export const getDeviceSpecificStyles = (deviceInfo: DeviceInfo) => {
-  const baseStyles = {
-    objectFit: 'contain' as const,
-    objectPosition: 'center' as const,
-    imageOrientation: 'from-image' as const,
+export const getDeviceSpecificStyles = (deviceInfo: DeviceInfo): CSSProperties => {
+  const baseStyles: CSSProperties = {
+    objectFit: 'contain',
+    objectPosition: 'center',
     backgroundColor: '#f3f4f6',
     transform: 'none',
     WebkitTransform: 'none'
@@ -108,13 +107,13 @@ export const getDeviceSpecificStyles = (deviceInfo: DeviceInfo) => {
   if (deviceInfo.isIOS) {
     return {
       ...baseStyles,
-      WebkitBackfaceVisibility: 'hidden',
-      backfaceVisibility: 'hidden',
-      WebkitPerspective: '1000px',
+      WebkitBackfaceVisibility: 'hidden' as any,
+      backfaceVisibility: 'hidden' as any,
+      WebkitPerspective: '1000px' as any,
       perspective: '1000px',
-      imageRendering: '-webkit-optimize-contrast' as const
+      imageRendering: 'auto'
     };
   }
 
   return baseStyles;
-};
+}
