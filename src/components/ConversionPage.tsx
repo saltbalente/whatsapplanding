@@ -11,13 +11,20 @@ const ConversionPage: React.FC<ConversionPageProps> = ({ type }) => {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(3);
 
-  const number = searchParams.get('number') || '';
+  const number = searchParams.get('phone') || searchParams.get('number') || '';
   const message = searchParams.get('message') || '';
   const service = searchParams.get('service') || 'consulta';
 
   useEffect(() => {
     // Disparar evento GTM inmediatamente
     const eventName = type === 'whatsapp' ? 'conversion_whatsapp_click' : 'conversion_call_click';
+    
+    console.log(`🎯 Disparando evento GTM: ${eventName}`, {
+      type,
+      number,
+      service,
+      url: window.location.href
+    });
     
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', eventName, {
@@ -27,6 +34,7 @@ const ConversionPage: React.FC<ConversionPageProps> = ({ type }) => {
         timestamp: new Date().toISOString(),
         conversion_type: type
       });
+      console.log('✅ Evento gtag enviado');
     }
 
     // También enviar a dataLayer para GTM
@@ -38,6 +46,9 @@ const ConversionPage: React.FC<ConversionPageProps> = ({ type }) => {
         service_type: service,
         timestamp: new Date().toISOString()
       });
+      console.log('✅ Evento dataLayer enviado');
+    } else {
+      console.warn('⚠️ dataLayer no disponible');
     }
 
     // Countdown y redirección

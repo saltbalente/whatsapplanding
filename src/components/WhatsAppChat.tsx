@@ -127,6 +127,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
 
   const handleCall = () => {
     const params = new URLSearchParams({
+      phone: '+13213009113',
       number: '+13213009113',
       service: 'llamada-directa'
     });
@@ -135,6 +136,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
 
   const handleVideoCall = () => {
     const params = new URLSearchParams({
+      phone: '+13213009113',
       number: '+13213009113',
       service: 'videollamada'
     });
@@ -174,6 +176,7 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
 
   const handleServiceCall = () => {
     const params = new URLSearchParams({
+      phone: '+13213009113',
       number: '+13213009113',
       service: selectedService || 'consulta-general'
     });
