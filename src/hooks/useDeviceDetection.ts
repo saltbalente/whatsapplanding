@@ -87,7 +87,7 @@ export const useDeviceDetection = (): DeviceInfo => {
  * @returns Ruta de la imagen de avatar apropiada
  */
 export const getAvatarImage = (deviceInfo: DeviceInfo): string => {
-  return deviceInfo.isIOS ? '/maestro-altar.jpg' : '/altar-brujo.png';
+  return deviceInfo.isIOS ? '/gabriel-maestro.jpg' : '/altar-brujo.png';
 };
 
 /**
