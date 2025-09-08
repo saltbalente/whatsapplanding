@@ -91,10 +91,14 @@ const WhatsAppChat: React.FC<WhatsAppChatProps> = ({
   // Función para enviar mensaje vía API de WhatsApp
   const sendWhatsAppMessage = async (message: string) => {
     const phoneNumber = '+18392988226';
-    const encodedMessage = encodeURIComponent(message);
+    const params = new URLSearchParams({
+      number: phoneNumber,
+      message: message,
+      service: 'mensaje-directo'
+    });
     
-    // Abrir WhatsApp con el mensaje predefinido
-    window.open(`https://wa.me/${phoneNumber.replace('+', '')}?text=${encodedMessage}`, '_blank');
+    // Usar página de conversión para tracking
+    navigate(`/conversion/whatsapp?${params.toString()}`);
     
     // Nota: Para una integración real con API de WhatsApp Business,
     // aquí harías una llamada HTTP a tu backend que maneje la API
