@@ -166,3 +166,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* Safari iOS specific fixes for image orientation */
+@supports (-webkit-touch-callout: none) {
+  .avatar-image {
+    object-fit: contain !important;
+    object-position: center !important;
+    background-color: #f3f4f6 !important;
+    -webkit-transform: none !important;
+  }
+}
+
+/* Ensure images show completely without cropping */
+.maestro-avatar {
+  object-fit: contain;
+  object-position: center;
+  background-color: #f3f4f6;
+  width: 100%;
+  height: 100%;
+}

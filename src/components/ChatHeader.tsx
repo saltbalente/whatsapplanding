@@ -2,12 +2,20 @@ import React from 'react';
 import { ChatHeaderProps } from '../types';
 import SVGIcon from './SVGIcon';
 
+// Función para detectar iOS
+const isIOS = () => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
 const ChatHeader: React.FC<ChatHeaderProps> = ({ 
   contact, 
   onBack: __onBack, 
   onCall, 
   onVideoCall 
 }) => {
+  // Seleccionar imagen según el dispositivo
+  const avatarImage = isIOS() ? '/gabriel-maestro.jpg' : '/altar-brujo.png';
 
   return (
     <div className="bg-whatsapp-dark flex items-center px-3 sm:px-4 py-2 sm:py-3 text-white sticky top-0 z-50">
@@ -16,16 +24,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
       {/* Avatar */}
       <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden mr-2 sm:mr-3 flex-shrink-0">
         <img 
-          src="/altar-brujo.png" 
+          src={avatarImage} 
           alt={contact.name}
           className="w-full h-full object-cover object-center"
-          style={{
-            aspectRatio: '1/1',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            transform: 'none',
-            imageOrientation: 'from-image'
-          }}
+          style={{ objectFit: "contain", objectPosition: "center", imageOrientation: "from-image", backgroundColor: "#f3f4f6" }}
         />
       </div>
       

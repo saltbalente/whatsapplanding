@@ -1,6 +1,12 @@
 import React from 'react';
 import { SVGIcon } from './SVGIcon';
 
+// Función para detectar iOS
+const isIOS = () => {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+};
+
 interface ServiceDetailProps {
   service: string;
   onBack: () => void;
@@ -70,7 +76,7 @@ const serviceDetails = {
     title: 'Mejorar mi Salud 🌿',
     icon: 'health',
     color: 'from-green-500 to-blue-400',
-    image: '/altar-brujo.png',
+    image: isIOS() ? '/gabriel-maestro.jpg' : '/altar-brujo.png',
     copy: {
       headline: '¡Recupera tu bienestar integral!',
       description: 'Sana tu cuerpo, mente y espíritu con rituales de sanación que complementan tu tratamiento médico.',
@@ -136,7 +142,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <img 
               src={details.image} 
               alt={details.title}
-              className="w-full h-64 sm:h-80 object-cover rounded-xl shadow-md"
+              className="w-full h-64 sm:h-80 object-contain bg-gray-100 rounded-xl shadow-md"
               style={{
                 objectFit: 'cover',
                 objectPosition: 'center center',
